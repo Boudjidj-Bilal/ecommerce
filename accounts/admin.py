@@ -14,9 +14,3 @@ admin.site.register(Shopper)
 
 
 
-
-
-
-# l'identifiant est Ecommerce
-# l'adresse mail est bilelboudjidj8@gmail.com 
-# le mot de passe est Password01

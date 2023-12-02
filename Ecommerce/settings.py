@@ -26,7 +26,9 @@ SECRET_KEY = 'django-insecure-yoxagg3ghlyirfu)jpgz(h!(0q9%t4wqe3ci73i-7acvr$634$
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['ecommerce-izqcbxc5.b4a.run']
+ALLOWED_HOSTS = ['ecommerce-izqcbxc5.b4a.run','127.0.0.1']
+
+CSRF_TRUSTED_ORIGINS = ['https://*.ecommerce-izqcbxc5.b4a.run','https://*.127.0.0.1']
 
 
 # Application definition
