@@ -1,0 +1,10 @@
+{
+  "applications": {
+    "_default": {
+      "link": "toto/"
+    },
+    "toto/": {
+      "applicationId": "S2rP0flWaR3Fd5vTkOEvJBc1nWMsWbOobH8q4O1K"
+    }
+  }
+}
