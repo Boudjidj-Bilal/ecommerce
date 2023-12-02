@@ -1,0 +1,85 @@
+{% load static %}
+
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="{% static 'index.css' %}" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <title>E-shop</title>
+    </head>
+    <body>
+
+        <nav class="navbar">
+            {% comment %} <a class="fa-brands fa-instagram fa-LG" style="color: #ffffff;" href="https://www.instagram.com/baranostop__world/" target="_blank"></a> {% endcomment %}
+             <div class="logo"><h1> <a href="{% url 'index' %}">BARANOSTOP</a> <h1> </div> {% comment %} ici mettre le logo {% endcomment %}
+            {% comment %} <a href="{% url 'index' %}"></a> {% endcomment %}
+            <ul class="menu">
+                
+                {% if user.is_authenticated %} {% comment %} on vérifie ici si l'uitlisateur est connecté {% endcomment %}
+                    <li class="user"><p> {{ user.username }} </p> </li>
+                    <li><a href="{% url 'logout'%}"> Deconnexion </a></li>
+                {% else %}
+                    <li><a href="{% url 'login'%}"> Connexion </a></li>
+                    <li><a href="{% url 'signup'%}"> S'inscrire </a></li>
+                {% endif %}
+                {% comment %} {% if user.cart %} on vérifie ici si l'uitlisateur a un panier (model Cart) {% endcomment %}
+                <li><a id="nbProductCart" href="" class="fa-solid fa-cart-shopping" style="color: #ffffff;"></a></li>
+                {% comment %} <li><a href="{% url 'cart' %}" class="fa-solid fa-cart-shopping" style="color: #ffffff;"> </a></li> {% endcomment %}
+
+                {% comment %} {% endif %}  {% endcomment %}
+                {% comment %} {{ user.cart.orders.count }} {% endcomment %}
+                
+            </ul>
+           
+        </nav>
+
+
+        
+
+        {% comment %} {% if user.is_authenticated %} on vérifie ici si l'uitlisateur est connecté {% endcomment %}
+            {% comment %} {{ user.username }}
+            <a href="{% url 'logout'%}" class="lienMenu"> déconnexion </a>
+        {% else %}
+            <a href="{% url 'login'%}" class="lienMenu"> Connexion </a>
+            <a href="{% url 'signup'%}" class="lienMenu"> S'inscrire </a>
+        {% endif %} {% endcomment %}
+
+        {% comment %} {% if user.cart %} on vérifie ici si l'uitlisateur a un panier (model Cart) {% endcomment %}
+
+            {% comment %} <p><a href="{% url 'cart'%}" class="lienMenu">Panier({{ user.cart.orders.count }})</a> </p> {% endcomment %}
+            {% comment %} On créer un lien qui mènent vers ka views cart avec l'url cart {% endcomment %}
+            {% comment %} On lui associe entre parenthèse le nombre d'artcile dans le panier de l'utilisateur {% endcomment %}
+            {% comment %} Pour cela on recupère user.cart qui représente le panier de l'utilisateur (model Cart), dans ce model on récupère le champs orders et on compte grâce à la fonction count le nombre d'élèments dans ce champ {% endcomment %}
+
+        {% comment %} {% endif %} {% endcomment %}
+
+
+
+        {% block content %}
+
+        {% endblock %}
+
+
+        <footer>
+            <p class="info">information: Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
+            <p class="info">information: Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
+            <p class="info">information: Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
+                {% comment %} <p>contact:</p> {% endcomment %}
+            <p class="copyR">Copyrights by <a href="">DigitalClub</a></p>
+
+            <a class="fa-brands fa-instagram fa-LG" class="insta" style="color: white;" href="https://www.instagram.com/baranostop__world/" target="_blank"></a>
+        </footer>
+        <script>
+            // first set the value you will be using.
+            var MEDIA_URL = "{{ MEDIA_URL }}"; // and anything else you need to set
+            {% comment %} var BASE_DIR  = "{{ BASE_DIR }}";
+            console.log(BASE_DIR); {% endcomment %}
+        </script>
+        <script src="{% static 'script.js' %}" defer></script>
+
+        {% block js %}
+        {% endblock %}
+
+    </body>
+</html>
+

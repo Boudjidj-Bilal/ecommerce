@@ -1,0 +1,36 @@
+{% extends "base.html" %}  {% comment %} on etend le fichier base.html dans le dossier templates à la racine {% endcomment %}
+
+{% load static %}
+
+{% block content %} {% comment %}  {% endcomment %}
+    <div class="imageIndex"><img id="imgIndex1" src="{% static 'images/site/imageIndex1.jpg' %}"></div>
+    <br>
+    <section class="section_produits">
+        <center>
+            <div class="produits">
+                    {% for article in article_listes_defaut %}
+                        
+                        <div class="carte">
+                            <a href="{% url 'detail' article.product.id article.id %}">
+                                <div class="img">
+                                    <img src="{{ article.couleur.image.url }}" alt="{{ article.product.name }}"> {% comment %} url de l'image de l'article par defaut             récupère l'url de l'image du model Product, on remet le nm du produit dans alt au cas ou l'image n'est pas afficher, elle permet d'afficher une desciption de l'image {% endcomment %}
+                                </div>
+                                <br>
+                                <div class="titre"> {{ article.product.name }} </div> {% comment %} le nom du produit {% endcomment %}
+                                <div class="prixIndex">€{{ article.prix_unitaire }}</div> {% comment %} le prix de l'article {% endcomment %}
+                            </a>
+                        </div>
+                    {% endfor %}
+                    
+            </div>
+        </center>
+    </section>
+
+{% endblock %}
+
+{% comment %} {% for product in products %} fait une boucle sur la variable products récupéré de la views {% endcomment %}
+{% comment %} <h2> {{ product.name }} </h2> récupère le nom du model Product {% endcomment %}
+{% comment %} <img src="{{ product.thumbnail.url }}" alt="{{ product.name }}" style="width:200px "> récupère l'url de l'image du model Product, on remet le nm du produit dans alt au cas ou l'image n'est pas afficher, elle permet d'afficher une desciption de l'image {% endcomment %}
+{% comment %} <p>{{ product.prix }}€</p> {% endcomment %}
+{% comment %} <a href="{{ product.get_absolute_url }}">Voir l'article</a>  ici on fait appel dans l'url à la méthode get_absolute_url dans le model Product, qui nous permet de faire le liens vers la page detail d'un produit, on utilise product. car c'est le nom qu'on a donner à l'url du detail du produit {% endcomment %}
+{% comment %} {% endfor %} {% endcomment %}

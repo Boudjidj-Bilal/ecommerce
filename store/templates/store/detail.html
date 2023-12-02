@@ -1,0 +1,106 @@
+{% extends "base.html" %}  {% comment %} on etend le fichier base.html dans le dossier templates à la racine {% endcomment %}
+
+
+{% block content %} {% comment %}  {% endcomment %}
+        <div class="contenairArticle">
+            <div class="divImagesArticleDetail">
+                <img src="{{ article.couleur.image.url }}" id="imageArticle"> {% comment %} récupère l'url de l'image du model Product, on remet le nm du produit dans alt au cas ou l'image n'est pas afficher, elle permet d'afficher une desciption de l'image {% endcomment %}
+            </div>
+            <div class="contenairDetail">
+                <h1 id="nameArticle"> {{ article.product.name }} </h1> {% comment %} nom de l'article {% endcomment %}
+                <h2 id="prixArticle">€{{ article.prix_unitaire }}</h2> {% comment %} prix de l'article {% endcomment %}
+                {% comment %} <input type="number" id="" name="" min="1" max="{{ product.stock }}" /> {% endcomment %}
+                <br>
+                <div class="separationArticle"></div>
+                <br>
+                {% if article.taille.taille == "Taille_unique" %}
+                    <h2> Taille : Unique</h2> {% comment %} taille actuelle de l'artcile choisis par l'utilisateur, au debut par defaut  {% endcomment %}
+                    <br>
+                {% else %}
+                    <h2> Taille : {{ article.taille.taille }}</h2> {% comment %} taille actuelle de l'artcile choisis par l'utilisateur, au debut par defaut  {% endcomment %}
+                    <br>
+                {% endif %}
+                
+                {% for articleTaille in articles_product %}
+                    {% if articleTaille.taille.taille != "Taille_unique" %}
+                        {% if articleTaille.stock != 0%}
+                            <div calss="choixTailleArticle">
+
+                                <a href="{% url 'choixArticle' article.couleur.id articleTaille.taille.id article.product.id %}">
+                                    <input type="radio" class="taille" name="taille" value="{{ articleTaille.taille.taille }}" checked >
+                                </a>
+
+                                <label for="taille">{{ articleTaille.taille.taille }}</label>
+                            </div>
+                        {% else %} {% comment %} la même barer sans le bouttons {% endcomment %}
+                            <div calss="choixTailleArticle">
+                                <input type="radio" class="taille" name="taille" value="{{ articleTaille.taille.taille }}" checked />
+                                <strike><label for="taille">{{ articleTaille.taille.taille }}</label></strike>
+                            </div>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+                {% comment %} <div class="quantity pr mr__10 order-1 qty__true">
+                    <input type="number"></input>
+                </div> {% endcomment %}
+
+
+                {% comment %} <select name="tailles" id="tailles">
+                    {% for articleTaille in articles_product %}
+                        <a href="{% url 'choixTaille' articleTaille.taille.id article.product.id %}"><option value="{{  }}">{{ articleTaille.taille.taille }}</option></a>
+                    {% endfor %}
+                </select>
+                <select name="couleurs" id="couleurs">
+                    {% for articleCouleur in articles_product %} 
+                        <a href="{% url 'choixCouleur' articleCouleur.couleur.id article.product.id %}"><option value="{{  }}">{{ }}</option></a> 
+                    {% endfor %}
+                </select>
+                <br> {% endcomment %}
+                <br>
+
+                <p> Choisir la couleur :</p>
+                <ul id="buttons">
+                {% for couleur in couleur_liste %}
+                    <div calss="choixCouleurArticle">
+                        <input type="radio" class="couleur" name="couleur" value="{{ couleur.name }}" checked />
+                        <a href="{% url 'choixArticle' couleur.id article.taille.id article.product.id %}">
+                            <label for="couleur">{{ couleur.name }}</label>
+                        </a>
+                    </div>
+                {% endfor %}
+                    <li><a href="#">HOME</a></li>
+
+                </ul>
+
+                <br>
+
+                {% comment %} <p> Choisir la quantité : </p>
+                <div class="quantity pr mr__10 order-1 qty__true">
+                    <input type="number"></input>
+                </div> {% endcomment %}
+
+
+                
+                {% if user.is_authenticated %} {% comment %} on verifie ici si l'uitlisateur est connecté {% endcomment %}
+                    {% if article.stock != 0 %}
+                        <button onclick="addBasket({'id':{{ article.id }},'name':'{{ article.product.name }}','prix':'{{ article.prix_unitaire }}','stock':'{{ article.stock }}','description':'{{ article.product.description }}','image':'{{ article.couleur.image.url }}' ,'taille':'{{ article.taille.taille }}'})"> 
+                            Ajouter au panier
+                        </button>
+                    {% else %}
+                        <p> Stock écoulé </p>
+                    {% endif%}
+                {% else %}
+                    <button>
+                        <a href="{% url 'login'%}" style="text-decoration: none;"> {% comment %} on créer un button avec l'élément js onclick qui fait appel à la fonction du fichier script.js qui se nomme addBasket et qui prend tout les élément d'un produit en paramètre {% endcomment %}
+                            Ajouter au panier
+                        </a>
+                    </button>
+                {% endif %}
+                <br>
+                <br>
+                <p>Description : </p>
+                <p>{{ article.product.description }}</p> {% comment %} description {% endcomment %}
+            </div>
+        </div>
+{% endblock %}
+

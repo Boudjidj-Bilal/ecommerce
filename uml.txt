@@ -1,0 +1,71 @@
+// https://dbdiagram.io/d
+//// -- LEVEL 1
+//// -- Tables and References
+
+// Creating tables
+
+
+Table Taille as T{
+  id int [pk,increment]
+  taille varchar
+}
+
+Table Categorie as C{
+  id int [pk,increment]
+  name varchar
+}
+
+Table Produit as P{
+  id int [pk,increment]
+  name varchar
+  slug slug
+  description texte
+  categorie Categorie
+}
+Ref: P.categorie > C.id
+
+Table Couleur as COU{
+  id int [pk,increment]
+  name varchar
+  image image
+  produit Produit
+}
+Ref: COU.produit > P.id
+
+Table Article as A{
+  id int [pk,increment]
+  couleur Couleur
+  product Product
+  taille Taille
+  stock int
+  prix_unitaire float
+  produit_defaut boolean
+}
+Ref: A.couleur > COU.id
+Ref: A.product > P.id
+Ref: A.taille > T.id
+
+Table User as U{
+  id int [pk,increment]
+  name varchar
+  mdp varchar
+  mail varchar
+}
+
+Table Commande as CO{
+  id int [pk,increment]
+  user User
+  articles Article
+}
+Ref: CO.user > U.id
+Ref: CO.articles <> A.id
+
+// Creating references
+// You can also define relaionship separately
+// > many-to-one; < one-to-many; - one-to-one
+
+
+// Table User as U {
+//   id int [pk, increment]
+//   name varchar
+// }

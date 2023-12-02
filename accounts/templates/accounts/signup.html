@@ -1,0 +1,48 @@
+{% extends "base.html" %}  {% comment %} on etend le fichier base.html dans le dossier templates à la racine {% endcomment %}
+
+{% block content %} {% comment %}  {% endcomment %}
+    <center>
+        <div class="contenairLog">
+            <div class="formulaireLogin">
+                <h1>S'inscrire</h1>
+                <br>
+                <form method="POST">  {% comment %} la méthode applique une action par defaut à la view où nous nous trouvons{% endcomment %}
+                    {% csrf_token %}
+                    <p>
+                        <label for="username">Nom d'utilisateur:</label>
+                        <br>
+                        <input id="username" type="text" name="username" required="required" value="{{ defaultUsername }}" minlength="2"/>
+
+                        <br>
+                    </p>
+                    <p>
+                        <br>
+                        <label for="email">Adress e-mail:</label>
+                        <br>
+                        <input id="email" type="email" name="email" required="required" value="{{ defaultEmail }}"/>
+                        <br>
+                    </p>
+                    <p>
+                        <br>
+                        <label for="password">Mot de passe:</label>
+                        <br>
+                        <input id="password" type="password" name="password" required="required" minlength="8" />
+                        <br>
+                        <br>
+                    </p>
+                    <p>
+                        <label for="confirmerPassword">Confirmer le mot de passe :</label>
+                        <br>
+                        <input id="confirmerPassword" type="password" name="confirmerPassword" required="required" minlength="8">
+                    </p>
+                    <br>
+                    <p style="color: red;">{{ messageErrorMdp }}</p>
+                    <br>
+
+                    <button type="submit">S'inscrire </button>
+                </form>
+            </div>
+        </div>
+    </center>
+
+{% endblock %}

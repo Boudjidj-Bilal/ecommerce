@@ -1,0 +1,42 @@
+{% extends "base.html" %}  {% comment %} on etend le fichier base.html dans le dossier templates à la racine {% endcomment %}
+
+{% load static %}
+
+{% block content %} 
+    <h1>Panier d'achat:</h1>
+
+    <div id="produits" class="cartProduct">
+
+    </div>
+        {% comment %} <a href=""> {% endcomment %}
+        {% comment %} <button onclick="">
+    
+            Suprimer le panier
+        <button> {% endcomment %}
+        {% comment %} </a> {% endcomment %}
+
+
+{% comment %} ancienne relation avec la base de donnée: <h2>{{ order.product.name }} / <img>{{ order.product.thumbnail.url }}{{ order.product.name }} / <p>{{ order.quantity }} / <a>{% url 'delete-cart'%} {% endcomment %}
+
+{% endblock %}
+
+{% block js %}
+
+   <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    {% comment %} <script src="{% static 'chapitre/js/chapitre.js' %}"></script> {% endcomment %}
+   <script src="{% static 'cart.js' %}" defer></script>
+    
+{% endblock %}
+
+
+
+
+{% comment %} <div id="{{ order.product.id }}" > 
+    <h2 id="name"></h2>  on récupère le champ orders du model Cart, dans le champ orders on y importe le model Order, on récupère le champ product du model Order, dans le champs product on y importe le model Product, on récupère le name du model Product {% endcomment %}
+    {% comment %} <img src="" alt="" style="width:200px " id="image">  récupère l'url de l'image du model Product, on remet le nm du produit dans alt au cas ou l'image n'est pas afficher, elle permet d'afficher une desciption de l'image {% endcomment %}
+    {% comment %} <p id="quantity"> dans le panier</p> {% endcomment %}
+    {% comment %} <p> {{ prixTotal}} </p> {% endcomment %}
+    {% comment %} <button onclick="removeFromBasket({id:'{{ order.product.id }}'})">
+        Suprimer l'article
+    </button>
+</div> {% endcomment %}
